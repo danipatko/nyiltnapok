@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Likely to change later on to meet demands
+
+enum UserRole {
+    admin
+    guide 
+    guest
+}
+
+enum Section {
+    A
+    B 
+    C 
+    D 
+    E 
+    F
+}
+
+enum AuthType {
+    google
+    custom
+}
+
+model User {
+    id              Int         @id @unique @default(autoincrement())
+
+    // essential data
+    role            UserRole    @default(guest)
+    email           String      @unique
+    fullname        String
+    
+    // meta
+    authentication  AuthType    @default(custom)
+    createdAt       DateTime    @default(now())
+    lastLogin       DateTime    @default(now())
+
+    // for guests
+    groupId         Int? 
+    joinedGroup     Group?      @relation("guestRelation", fields: [groupId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+
+    // for guides
+    guideId         Int?
+    guidingGroup    Group?      @relation("guideRelation", fields: [guideId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+
+    // for admins
+    createdGroups   Group[]
+}
+
+model Group {
+    id          Int         @id @unique @default(autoincrement())
+ 
+    name        String
+    description String
+    section     Section?
+    
+    createdAt   DateTime    @default(now())
+    creatorId   Int
+    createdBy   User        @relation(fields: [creatorId], references: [id], onDelete: Cascade) 
+
+    members     User[]      @relation("guestRelation")
+    guides      User[]      @relation("guideRelation")
+}
