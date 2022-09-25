@@ -1,4 +1,4 @@
-import { randstr } from '../util';
+import { randstr } from '../util.server';
 import crypto from 'crypto';
 
 // types
@@ -55,35 +55,6 @@ export class TOTP {
 
 		return result;
 	}
-
-	// public static test() {
-	// 	// Seed for HMAC-SHA1 - 20 bytes
-	// 	const seed = '3132333435363738393031323334353637383930';
-	// 	// Seed for HMAC-SHA256 - 32 bytes
-	// 	const seed32 = '3132333435363738393031323334353637383930' + '313233343536373839303132';
-	// 	// Seed for HMAC-SHA512 - 64 bytes
-	// 	const seed64 = '3132333435363738393031323334353637383930' + '3132333435363738393031323334353637383930' + '3132333435363738393031323334353637383930' + '31323334';
-	// 	const T0 = 0;
-	// 	const X = 30;
-	// 	const testTime: number[] = [60, 89, 1111111111, 1234567890, 2000000000, 20000000000];
-	//
-	// 	let steps = '0';
-	//
-	// 	console.log('+---------------+-----------------------+' + '------------------+--------+--------+');
-	// 	console.log('|  Time(sec)    |   Time (UTC format)   ' + '| Value of T(Hex)  |  TOTP  | Mode   |');
-	// 	console.log('+---------------+-----------------------+' + '------------------+--------+--------+');
-	//
-	// 	for (let i = 0; i < testTime.length; i++) {
-	// 		let T = Math.floor((testTime[i] - T0) / X);
-	// 		steps = T.toString(16);
-	// 		while (steps.length < 16) steps = '0' + steps;
-	// 		const date = new Date(testTime[i] * 1000).toLocaleTimeString();
-	// 		console.log(`| ${testTime[i]} | ${date} | ${steps} | ${TOTP.generateTOTP(seed, steps, 8, 'sha1')} | SHA1`);
-	// 		console.log(`| ${testTime[i]} | ${date} | ${steps} | ${TOTP.generateTOTP(seed32, steps, 8, 'sha256')} | SHA256`);
-	// 		console.log(`| ${testTime[i]} | ${date} | ${steps} | ${TOTP.generateTOTP(seed64, steps, 8, 'sha512')} | SHA512`);
-	// 		console.log('+---------------+-----------------------+' + '------------------+--------+--------+');
-	// 	}
-	// }
 }
 
 /**

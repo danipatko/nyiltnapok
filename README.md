@@ -57,3 +57,14 @@ npm run db:reset
 # or
 prisma migrate reset dev
 ```
+
+### Other environment variables
+
+```env
+# required to send emails
+VITE_SENDGRID_API_KEY
+
+# required for recaptcha
+PUBLIC_RECAPTCHA_CLIENT_KEY
+VITE_RECAPTCHA_SERVER_KEY
+```
