@@ -5,9 +5,9 @@ if (!import.meta.env.VITE_SENDGRID_API_KEY) throw new Error('Cannot find sendgri
 sendGrid.setApiKey(import.meta.env.VITE_SENDGRID_API_KEY);
 
 // const msg: sendGrid.MailDataRequired = {
-// 	to: 'varga.benedek.20f@szlgbp.hu',
-// 	from: 'p8.dani@gmail.com',
-// 	subject: 'I Like Watching Videos Of Black Men Shaking Their Booty Cheeks...',
+// 	to: ' ',
+// 	from: ' ',
+// 	subject: ' ',
 // 	text: 'copypasta',
 // 	html: 'copypasta'
 // };

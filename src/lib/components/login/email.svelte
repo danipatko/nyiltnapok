@@ -4,7 +4,7 @@
 
 	onMount(() => {
 		// @ts-ignore
-		renderThing();
+		renderCaptcha();
 	});
 
 	const validate = () => {
@@ -20,9 +20,8 @@
 </script>
 
 <svelte:head>
-	<!-- onload=onloadCallback& -->
 	<script defer>
-		const renderThing = () => {
+		const renderCaptcha = () => {
 			grecaptcha.render(document.getElementById('captcha-container'), {
 				sitekey: '6LdBqywiAAAAAB7YTVACaXr_BxRUDRm1BJ7B0LkL'
 			});
@@ -36,7 +35,6 @@
 	<input on:change={validate} bind:value={email} type="text" name="email" id="email" placeholder="Email cím" />
 {/if}
 
-<!-- TOFIX: for some reason, captcha always renders on top of the form and not in the container -->
 <div style={`display: ${shown ? 'block' : 'none'};`} id="captcha-container" />
 
 {#if shown}
