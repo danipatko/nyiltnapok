@@ -1,0 +1,22 @@
+<script lang="ts">
+	let fullname: string = '';
+	let error: string | null = null;
+
+	const validate = (): boolean => {
+		const ok = !!(fullname && fullname.match(/[a-zA-Zs+]{1,100}/gm));
+		error = ok ? null : 'Érvénytelen felhasználónév!';
+		return ok;
+	};
+
+	export let next: () => any;
+	export let shown: boolean;
+</script>
+
+<input style={`display: ${shown ? 'block' : 'none'}`} on:change={validate} type="text" placeholder="Tanuló neve" name="fullname" id="fullname" bind:value={fullname} />
+
+{#if shown}
+	{#if error != null}
+		{error}
+	{/if}
+	<button on:click|preventDefault={() => validate() && next()}>Tovább</button>
+{/if}
