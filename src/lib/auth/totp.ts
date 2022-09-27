@@ -12,7 +12,7 @@ interface VerificationPayload {
 // defaults
 const defaultAlgorithm: Algorithm = 'sha256';
 const truncateLength: number = 8;
-const stepTime = 60; // in seconds
+const stepTime = 120; // in seconds
 const algoLengths = {
 	sha1: 20,
 	sha256: 32,

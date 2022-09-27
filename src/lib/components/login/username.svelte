@@ -12,11 +12,10 @@
 	export let shown: boolean;
 </script>
 
-<input style={`display: ${shown ? 'block' : 'none'}`} on:change={validate} type="text" placeholder="Tanuló neve" name="fullname" id="fullname" bind:value={fullname} />
-
-{#if shown}
+<div style={`display: ${shown ? 'block' : 'none'}`}>
 	{#if error != null}
-		{error}
+		<label for="fullname">{error}</label>
 	{/if}
+	<input required aria-required on:change={validate} type="text" placeholder="Tanuló neve" name="fullname" id="fullname" bind:value={fullname} />
 	<button on:click|preventDefault={() => validate() && next()}>Tovább</button>
-{/if}
+</div>

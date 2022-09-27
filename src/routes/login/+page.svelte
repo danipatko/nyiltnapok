@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { ActionData } from '.svelte-kit/types/src/routes/signup/$types';
 	import Name from '$lib/components/login/username.svelte';
 	import Email from '$lib/components/login/email.svelte';
 	import { applyAction, enhance } from '$app/forms';
@@ -9,7 +8,11 @@
 </script>
 
 <main>
-	<h1>Nyílt nap regisztráció</h1>
+	<h1>Nyílt nap jelentkezés</h1>
+	<p>
+		Add meg a neved és e-mail címed a jelentkezéshez! A megadott e-mail címre küldeni fogunk egy 8-jegyű kódót, amivel be tudod magadat azonosítani. Amennyiben már regisztráltál, ugyanezt a procedúrát
+		követve ismét be tudsz jelentkezni.
+	</p>
 	<form
 		method="POST"
 		id="form"

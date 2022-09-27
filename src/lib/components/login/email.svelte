@@ -29,17 +29,11 @@
 	</script>
 	<script src="https://www.google.com/recaptcha/api.js?render=explicit" async></script>
 </svelte:head>
-
-{#if shown}
-	<p>Adja meg az e-mail címét! A megadott címre küldünk egy visszaigazoló emailt.</p>
+<div style={`display: ${shown ? 'block' : 'none'};`}>
 	<input on:change={validate} bind:value={email} type="text" name="email" id="email" placeholder="Email cím" />
-{/if}
-
-<div style={`display: ${shown ? 'block' : 'none'};`} id="captcha-container" />
-
-{#if shown}
-	<input on:click={(e) => !validateEmail(email) && e.preventDefault()} type="submit" value="Nyomod" />
+	<div id="captcha-container" />
 	{#if error != null}
 		<label for="email">{error}</label>
 	{/if}
-{/if}
+	<input on:click={(e) => !validateEmail(email) && e.preventDefault()} type="submit" value="Nyomod" />
+</div>

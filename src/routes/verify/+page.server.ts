@@ -1,10 +1,11 @@
-import { UserRole } from '@prisma/client';
+import { invalid, redirect } from '@sveltejs/kit';
 import { verifyOTP } from '$lib/auth/totp';
-import { invalid } from '@sveltejs/kit';
+import { UserRole } from '@prisma/client';
 import prisma from '$lib/db/client';
+import { sign } from '$lib/auth/jwt';
 
 export const actions: import('./$types').Actions = {
-	default: async ({ request, url }) => {
+	default: async ({ request, url, cookies }) => {
 		// form validation
 		const { code } = Object.fromEntries(await request.formData());
 		if (!(code && code.toString().length == 8)) {
@@ -23,14 +24,14 @@ export const actions: import('./$types').Actions = {
 
 		import.meta.env.DEV && console.log(`Successfully authenticated ${payload.fullname} <${payload.email}>`);
 
-		const user = await prisma.user.findFirst({ where: { email: payload.email } });
+		// create new user or log into exising one
+		let user = await prisma.user.findFirst({ where: { email: payload.email } });
 		if (!user) {
-			// create new user
-			// szlg domain -> guide, can be later promoted to admin : guest
-			await prisma.user.create({ data: { email: payload.email, fullname: payload.fullname, role: payload.email.endsWith('@szlgbp.hu') ? UserRole.guide : UserRole.guest } });
+			user = await prisma.user.create({ data: { email: payload.email, fullname: payload.fullname, role: payload.email.endsWith('@szlgbp.hu') ? UserRole.guide : UserRole.guest } });
 		}
 
-		// TODO: return user data, sign cookie and set shared state for client
-		return invalid(200, { success: true, msg: '' });
+		// set header for 30 days
+		cookies.set('token', sign({ admin: user.role == UserRole.admin, email: user.email, id: user.id }), { secure: !import.meta.env.DEV, maxAge: 60 * 60 * 24 * 30 });
+		throw redirect(303, '/verify/success');
 	}
 };
