@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { promisify } from 'util';
 
 if (!import.meta.env.VITE_PRIVATE_KEY) throw new Error('Cannot find VITE_PRIVATE_KEY in environment.');
 const defaultExpiry: string = '30d';
@@ -27,11 +26,13 @@ const check = (token: string): Promise<TokenData> => {
 	});
 };
 
-const checkNull = async (token: string): Promise<TokenData | null> => {
-	return check(token).catch((e) => {
-		import.meta.env.DEV && console.error(e);
-		return null;
-	});
+const checkNull = async (token: string, admin: boolean = false): Promise<TokenData | null> => {
+	return check(token)
+		.then((t) => (admin && !t.admin ? null : t))
+		.catch((e) => {
+			import.meta.env.DEV && console.error(e);
+			return null;
+		});
 };
 
 export { sign, check, checkNull };

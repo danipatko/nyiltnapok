@@ -3,7 +3,7 @@ import { createOTP } from '$lib/auth/totp';
 import { validateEmail } from '$lib/util';
 import { invalid, redirect } from '@sveltejs/kit';
 
-export const actions: import('./$types').Actions = {
+export const actions: import('../../../.svelte-kit/types/src/routes/login/$types').Actions = {
 	default: async ({ request }) => {
 		// form validation
 		const { 'g-recaptcha-response': token, fullname, email } = Object.fromEntries(await request.formData());
