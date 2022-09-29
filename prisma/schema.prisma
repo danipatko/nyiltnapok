@@ -10,64 +10,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Likely to change later on to meet demands
-
 enum UserRole {
-    admin
-    guide 
+    admin 
     guest
 }
 
-enum Section {
-    A
-    B 
-    C 
-    D 
-    E 
-    F
-}
-
-enum AuthType {
-    google
-    custom
-}
-
 model User {
-    id              Int         @id @unique @default(autoincrement())
+    id                  Int         @id @unique @default(autoincrement())
 
     // essential data
-    role            UserRole    @default(guest)
-    email           String      @unique
-    fullname        String
+    role                UserRole    @default(guest)
+    email               String      @unique
+    fullname            String
     
     // meta
-    authentication  AuthType    @default(custom)
-    createdAt       DateTime    @default(now())
-    lastLogin       DateTime    @default(now())
+    createdAt           DateTime    @default(now())
+    lastLogin           DateTime    @default(now())
 
     // for guests
-    groupId         Int? 
-    joinedGroup     Group?      @relation("guestRelation", fields: [groupId], references: [id], onUpdate: Cascade, onDelete: SetNull)
-
-    // for guides
-    guideId         Int?
-    guidingGroup    Group?      @relation("guideRelation", fields: [guideId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+    groupId             Int? 
+    joinedGroup         Group?      @relation("guestRelation", fields: [groupId], references: [id], onUpdate: Cascade, onDelete: SetNull)
 
     // for admins
-    createdGroups   Group[]
+    createdAppointments Appointment[]
+    createdGroups       Group[]
+}
+
+model Appointment {
+    id          Int         @id @unique @default(autoincrement())
+
+    label       String
+
+    creatorId   Int
+    createdBy   User        @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+    createdAt   DateTime    @default(now())
+
+    groups      Group[]
 }
 
 model Group {
-    id          Int         @id @unique @default(autoincrement())
- 
-    name        String
-    description String
-    section     Section?
-    
-    createdAt   DateTime    @default(now())
-    creatorId   Int
-    createdBy   User        @relation(fields: [creatorId], references: [id], onDelete: Cascade) 
+    id              Int         @id @unique @default(autoincrement())
 
-    members     User[]      @relation("guestRelation")
-    guides      User[]      @relation("guideRelation")
+    appointmentId   Int
+    appointment     Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+    
+    maxMemberCount  Int
+    
+    creatorId       Int
+    createdBy       User        @relation(fields: [creatorId], references: [id], onDelete: Cascade) 
+    createdAt       DateTime    @default(now())
+
+    members         User[]      @relation("guestRelation")
 }

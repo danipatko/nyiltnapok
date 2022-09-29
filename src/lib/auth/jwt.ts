@@ -26,13 +26,15 @@ const check = (token: string): Promise<TokenData> => {
 	});
 };
 
-const checkNull = async (token: string, admin: boolean = false): Promise<TokenData | null> => {
-	return check(token)
-		.then((t) => (admin && !t.admin ? null : t))
-		.catch((e) => {
-			import.meta.env.DEV && console.error(e);
-			return null;
-		});
+const checkNull = async (token: string | undefined, admin: boolean = false): Promise<TokenData | null> => {
+	return !token
+		? null
+		: check(token)
+				.then((t) => (admin && !t.admin ? null : t))
+				.catch((e) => {
+					import.meta.env.DEV && console.error(e);
+					return null;
+				});
 };
 
 export { sign, check, checkNull };

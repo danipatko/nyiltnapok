@@ -1,4 +1,5 @@
 import { randstr } from '../util.server';
+import config from '../../../config';
 import crypto from 'crypto';
 
 // types
@@ -11,8 +12,8 @@ interface VerificationPayload {
 
 // defaults
 const defaultAlgorithm: Algorithm = 'sha256';
-const truncateLength: number = 8;
-const stepTime = 120; // in seconds
+const truncateLength: number = config.otpCodeLength;
+const stepTime: number = config.otpValidFor; // in seconds
 const algoLengths = {
 	sha1: 20,
 	sha256: 32,
@@ -28,7 +29,8 @@ export class TOTP {
 	 * @param secret: the bytes to use for the HMAC key
 	 * @param text: the message or text to be authenticated
 	 */
-	private static hmacSha = (algorithm: Algorithm, secret: string, text: string): Buffer => crypto.createHmac(algorithm, Buffer.alloc(algoLengths[algorithm], secret)).update(text).digest();
+	private static hmacSha = (algorithm: Algorithm, secret: string, text: string): Buffer =>
+		crypto.createHmac(algorithm, Buffer.alloc(algoLengths[algorithm], secret)).update(text).digest();
 
 	/**
 	 * This method generates a TOTP value for the given
@@ -47,7 +49,8 @@ export class TOTP {
 		let hash: Buffer = TOTP.hmacSha(algorithm, key, time);
 
 		const offset: number = hash[hash.length - 1] & 0xf;
-		const binary: number = ((hash[offset] & 0x7f) << 24) | ((hash[offset + 1] & 0xff) << 16) | ((hash[offset + 2] & 0xff) << 8) | (hash[offset + 3] & 0xff);
+		const binary: number =
+			((hash[offset] & 0x7f) << 24) | ((hash[offset + 1] & 0xff) << 16) | ((hash[offset + 2] & 0xff) << 8) | (hash[offset + 3] & 0xff);
 		const otp = binary % TOTP.DIGITS_POWER[returnDigits];
 
 		result = otp.toString();

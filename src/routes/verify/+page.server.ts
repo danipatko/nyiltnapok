@@ -27,11 +27,14 @@ export const actions: import('./$types').Actions = {
 		// create new user or log into exising one
 		let user = await prisma.user.findFirst({ where: { email: payload.email } });
 		if (!user) {
-			user = await prisma.user.create({ data: { email: payload.email, fullname: payload.fullname, role: payload.email.endsWith('@szlgbp.hu') ? UserRole.guide : UserRole.guest } });
+			user = await prisma.user.create({ data: { email: payload.email, fullname: payload.fullname, role: UserRole.guest } });
 		}
 
 		// set header for 30 days
-		cookies.set('token', sign({ admin: user.role == UserRole.admin, email: user.email, id: user.id }), { secure: !import.meta.env.DEV, maxAge: 60 * 60 * 24 * 30 });
+		cookies.set('token', sign({ admin: user.role == UserRole.admin, email: user.email, id: user.id }), {
+			secure: !import.meta.env.DEV,
+			maxAge: 60 * 60 * 24 * 30
+		});
 		throw redirect(303, '/verify/success');
 	}
 };

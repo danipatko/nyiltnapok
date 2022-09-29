@@ -1,4 +1,5 @@
 import type { Handle } from '@sveltejs/kit';
+import primsa from '$lib/db/client';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	let userid = event.cookies.get('userid');
