@@ -26,6 +26,7 @@ model User {
     // meta
     createdAt           DateTime    @default(now())
     lastLogin           DateTime    @default(now())
+    lastNotification    DateTime
 
     // for guests
     groupId             Int? 

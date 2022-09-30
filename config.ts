@@ -4,6 +4,10 @@ interface Settings {
 	 */
 	appointments: { label: string }[];
 	/**
+	 * Number of hours a user has to wait before changing appointments
+	 */
+	appointmentCooldown: number;
+	/**
 	 * How many groups are in a single appointment
 	 */
 	groupCount: number;
@@ -24,6 +28,7 @@ interface Settings {
 // change your default settings here
 const settings: Settings = {
 	appointments: [{ label: '2022. október 25. 14:20' }, { label: '2022. október 26. 14:20' }, { label: '2022. október 27. 14:20' }],
+	appointmentCooldown: 1,
 	groupCount: 8,
 	groupMemberCount: 20,
 	otpValidFor: 120,

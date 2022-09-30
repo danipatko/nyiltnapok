@@ -12,9 +12,10 @@ prisma.$connect().then(async () => {
 			.create({
 				data: {
 					id: 0, // autoincrement starts from 1
+					role: UserRole.admin,
 					email: '',
 					fullname: 'admin',
-					role: UserRole.admin,
+					lastNotification: new Date(0),
 					createdAppointments: { createMany: { data: [...config.appointments] } },
 					createdGroups: {
 						createMany: {

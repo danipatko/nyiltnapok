@@ -2,25 +2,27 @@
 	import { applyAction, enhance } from '$app/forms';
 	export let data: import('./$types').PageServerData;
 
-	let selected: number = data.selected?.appointmentId ?? 1;
+	let selected: number = data.selected?.appointmentId ?? 0;
 </script>
 
 <main>
 	<h1>Időpont kiválasztása</h1>
-	<div>
-		<!-- {JSON.stringify(data)} -->
-	</div>
 
 	<form
 		method="POST"
 		id="form"
-		use:enhance={({ data, form, action }) => {
-			console.log(data);
+		use:enhance={() => {
 			return async ({ result }) => {
-				console.log(result);
-				if (result.type == 'redirect') applyAction(result);
-				if (result.type == 'success' && result.data) selected = result.data.selected;
-				// if (result.type == 'error') alert(result?.data?.msg);
+				if (result.type == 'redirect') {
+					applyAction(result);
+				}
+				if (result.type == 'success' && result.data) {
+					selected = result.data.selected;
+				}
+				if (result.type == 'invalid') {
+					selected = result?.data?.current;
+					alert(result?.data?.msg);
+				}
 			};
 		}}
 	>

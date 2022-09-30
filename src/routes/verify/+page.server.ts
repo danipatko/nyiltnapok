@@ -27,7 +27,9 @@ export const actions: import('./$types').Actions = {
 		// create new user or log into exising one
 		let user = await prisma.user.findFirst({ where: { email: payload.email } });
 		if (!user) {
-			user = await prisma.user.create({ data: { email: payload.email, fullname: payload.fullname, role: UserRole.guest } });
+			user = await prisma.user.create({
+				data: { email: payload.email, fullname: payload.fullname, role: UserRole.guest, lastNotification: new Date(0) }
+			});
 		}
 
 		// set header for 30 days

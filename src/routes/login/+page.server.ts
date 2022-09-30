@@ -1,9 +1,10 @@
+import { error, invalid, redirect } from '@sveltejs/kit';
+import { sendVerification } from '$lib/mail/send';
 import verifyToken from '$lib/auth/captcha';
 import { createOTP } from '$lib/auth/totp';
 import { validateEmail } from '$lib/util';
-import { invalid, redirect } from '@sveltejs/kit';
 
-export const actions: import('../../../.svelte-kit/types/src/routes/login/$types').Actions = {
+export const actions: import('./$types').Actions = {
 	default: async ({ request }) => {
 		// form validation
 		const { 'g-recaptcha-response': token, fullname, email } = Object.fromEntries(await request.formData());
@@ -18,11 +19,15 @@ export const actions: import('../../../.svelte-kit/types/src/routes/login/$types
 		}
 
 		// create OTP
-		const [_, secret] = createOTP({ email: email.toString(), fullname: fullname.toString() });
+		const [code, secret] = createOTP({ email: email.toString(), fullname: fullname.toString() });
 
-		// TODO: send email
-		import.meta.env.DEV && console.log(`${fullname} <${email}> one time password: ${_} (secret: ${secret})`);
-
-		throw redirect(303, '/verify?shared_secret=' + secret);
+		if (import.meta.env.DEV) {
+			console.log(`${fullname} <${email}> one time password: ${code} (secret: ${secret})`);
+			throw redirect(303, '/verify?shared_secret=' + secret);
+		} else if (await sendVerification(email.toString(), fullname.toString(), code)) {
+			throw redirect(303, '/verify?shared_secret=' + secret);
+		} else {
+			throw error(500, 'Nem sikerült elküldeni az e-mailt.');
+		}
 	}
 };
