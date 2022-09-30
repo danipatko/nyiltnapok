@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import logo from './svelte-logo.svg';
 </script>
 
@@ -21,7 +20,7 @@
 	</nav>
 
 	<div class="corner">
-		<!-- TODO put something else here? github link? -->
+		<a href="/logout">Log out</a>
 	</div>
 </header>
 

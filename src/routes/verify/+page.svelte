@@ -22,7 +22,7 @@
 			};
 		}}
 	>
-		<p>Add meg a 8 jegyű kódot, amelyet a e-mail címedre küldtünk. Figyelem: a kód 2 percen belül lejár! <br /> <a href="/signup">Vissza</a></p>
+		<p>Add meg a 8 jegyű kódot, amelyet a e-mail címedre küldtünk. Figyelem: a kód 2 percen belül lejár! <br /> <a href="/login">Vissza</a></p>
 		{#if error != null}
 			<label for="code">{error}</label>
 		{/if}
