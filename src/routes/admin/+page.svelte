@@ -35,6 +35,7 @@
 			<div>
 				{#each app.groups as g}
 					<div>Csoport #{g.id} ({g.members.length}/{g.maxMemberCount} fő)</div>
+					<a target="_blank" href={`/admin/dl?id=${g.id}`}>Letöltés</a>
 					<form
 						action="?/deletegroup"
 						method="POST"
