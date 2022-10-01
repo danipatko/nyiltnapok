@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-if (!import.meta.env.VITE_PRIVATE_KEY) throw new Error('Cannot find VITE_PRIVATE_KEY in environment.');
+if (!import.meta.env.VITE_PRIVATE_SECRET) throw new Error('Cannot find VITE_PRIVATE_SECRET in environment.');
 const defaultExpiry: string = '30d';
 
 interface TokenData {
@@ -10,13 +10,13 @@ interface TokenData {
 }
 
 const sign = (data: TokenData): string => {
-	return jwt.sign(data, import.meta.env.VITE_PRIVATE_KEY, { expiresIn: defaultExpiry });
+	return jwt.sign(data, import.meta.env.VITE_PRIVATE_SECRET, { expiresIn: defaultExpiry });
 };
 
 const check = (token: string): Promise<TokenData> => {
 	return new Promise<TokenData>((res, rej) => {
 		try {
-			jwt.verify(token, import.meta.env.VITE_PRIVATE_KEY, (err, decoded) => {
+			jwt.verify(token, import.meta.env.VITE_PRIVATE_SECRET, (err, decoded) => {
 				if (err) rej(`Failed to verify token. Reason:\n${err}`);
 				else res(decoded as TokenData);
 			});

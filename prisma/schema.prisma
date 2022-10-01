@@ -33,6 +33,7 @@ model User {
     joinedGroup         Group?      @relation("guestRelation", fields: [groupId], references: [id], onUpdate: Cascade, onDelete: SetNull)
 
     // for admins
+    password            String?
     createdAppointments Appointment[]
     createdGroups       Group[]
 }
