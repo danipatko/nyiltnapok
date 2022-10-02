@@ -3,8 +3,7 @@
 </script>
 
 <main>
-	<h1>Időpont kiválasztása</h1>
-
+	<h1>Admin login</h1>
 	<form
 		method="POST"
 		id="form"
@@ -20,8 +19,8 @@
 			};
 		}}
 	>
-		<input type="text" name="email" id="email" placeholder="E-mail cím" />
-		<input type="password" name="pass" id="pass" placeholder="Jelszó" />
+		<input required aria-required type="text" name="email" id="email" placeholder="E-mail cím" />
+		<input required aria-required type="password" name="pass" id="pass" placeholder="Jelszó" />
 		<button type="submit">Login</button>
 	</form>
 </main>

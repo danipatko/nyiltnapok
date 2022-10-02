@@ -1,11 +1,20 @@
 <script lang="ts">
-	import { applyAction, enhance } from '$app/forms';
-	import { hasRestParameter } from 'typescript';
+	import { enhance } from '$app/forms';
+
 	export let data: import('./$types').PageServerData;
+
+	let type: 'tsv' | 'csv' = 'csv';
 </script>
 
 <main>
 	<h1>Időpontok és Csoportok</h1>
+	<fieldset>
+		<legend>Export típus</legend>
+		<select bind:value={type} name="exportType">
+			<option value="csv">CSV (comma separated)</option>
+			<option value="tsv">TSV (tab separated)</option>
+		</select>
+	</fieldset>
 	<div>
 		{#each data.appointments as app}
 			<div>{app.label} | {app.groups.length} csoport</div>
@@ -35,7 +44,7 @@
 			<div>
 				{#each app.groups as g}
 					<div>Csoport #{g.id} ({g.members.length}/{g.maxMemberCount} fő)</div>
-					<a target="_blank" href={`/admin/dl?id=${g.id}`}>Letöltés</a>
+					<a target="_blank" href={`/admin/dl?format=${type}&id=${g.id}`}>Letöltés</a>
 					<form
 						action="?/deletegroup"
 						method="POST"
