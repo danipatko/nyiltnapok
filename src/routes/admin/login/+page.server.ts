@@ -1,7 +1,7 @@
 import { invalid, redirect } from '@sveltejs/kit';
-import prisma from '$lib/db/client';
 import { hash } from '$lib/util.server';
 import { sign } from '$lib/auth/jwt';
+import prisma from '$lib/db/client';
 
 export const actions: import('./$types').Actions = {
 	default: async ({ request, cookies }) => {

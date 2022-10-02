@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { validateEmail } from '$lib/util';
+	import { notifications } from '$lib/components/toast';
 	import { onMount } from 'svelte';
 
 	onMount(() => {
@@ -14,6 +15,8 @@
 	};
 
 	let error: string | null = null;
+	$: error ? notifications.send('login', error) : notifications.clear('login');
+
 	let email: string = '';
 
 	export let shown: boolean;
@@ -29,11 +32,14 @@
 	</script>
 	<script src="https://www.google.com/recaptcha/api.js?render=explicit" async></script>
 </svelte:head>
-<div style={`display: ${shown ? 'block' : 'none'};`}>
-	<input on:change={validate} bind:value={email} type="text" name="email" id="email" placeholder="Email cím" />
-	<div id="captcha-container" />
-	{#if error != null}
-		<label for="email">{error}</label>
-	{/if}
-	<input on:click={(e) => !validateEmail(email) && e.preventDefault()} type="submit" value="Nyomod" />
+
+<div class="pt-2" style={`display: ${shown ? 'block' : 'none'};`}>
+	<div>
+		<input on:change={validate} bind:value={email} type="text" name="email" id="email" placeholder="Email cím" />
+	</div>
+	<div class="pt-2" id="captcha-container" />
+
+	<div class="center pt-2">
+		<button on:click={(e) => !validateEmail(email) && e.preventDefault()} type="submit">Küldés</button>
+	</div>
 </div>

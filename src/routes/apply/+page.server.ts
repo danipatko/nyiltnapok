@@ -14,8 +14,9 @@ export const load: import('./$types').PageServerLoad = async ({ cookies }) => {
 	}
 
 	return {
+		// appointmentMaxSlots: await prisma.group.groupBy({ by: ['appointmentId'], _sum: { maxMemberCount: true } }),
 		appointments: await prisma.appointment.findMany({
-			select: { id: true, label: true }
+			select: { /*groups: { select: { _count: { select: { members: true } } } },*/ id: true, label: true }
 		}),
 		// the appointment selected by the user
 		selected: await prisma.group.findFirst({ select: { appointmentId: true }, where: { members: { some: { id: user.id } } } })

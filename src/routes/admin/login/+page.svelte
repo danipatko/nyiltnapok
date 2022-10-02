@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
+	import { notifications } from '$lib/components/toast';
 </script>
 
 <main>
@@ -9,12 +10,12 @@
 		id="form"
 		use:enhance={() => {
 			return async ({ result }) => {
+				notifications.clearAll();
 				if (result.type == 'redirect') {
 					applyAction(result);
 				}
-
 				if (result.type == 'invalid') {
-					alert(result.data?.msg);
+					notifications.send('admin', result.data?.msg);
 				}
 			};
 		}}
