@@ -144,15 +144,14 @@ header.hide h1 {
 
 main {
 	padding: 10vh 15%;
-
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: left;
 	gap: 5em;
-
 	transition: 0.2s;
 }
+
 section {
 	display: flex;
 	flex-direction: column;
@@ -344,4 +343,8 @@ label {
 
 div.pair {
 	float: left;
+}
+
+.mt-1 {
+	margin-top: 1rem;
 }

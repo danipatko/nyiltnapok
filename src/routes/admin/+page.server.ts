@@ -1,9 +1,8 @@
 import { invalid, redirect } from '@sveltejs/kit';
-import { checkNull } from '$lib/auth/jwt';
-import config from '../../../config';
-import prisma from '$lib/db/client';
+import { check, checkNull } from '$lib/auth/jwt';
 import { UserRole } from '@prisma/client';
 import { hash } from '$lib/util.server';
+import prisma from '$lib/db/client';
 
 const selectMembers = { select: { fullname: true, email: true, lastLogin: true } };
 const selectGroups = { select: { id: true, maxMemberCount: true, members: selectMembers } };
@@ -33,8 +32,8 @@ export const load: import('./$types').PageServerLoad = async ({ cookies }) => {
 
 // actions
 // - create/delete admin users
-// - create/delete/update groups
-// - create/delete/update appointments
+// - create/delete groups
+// - create/delete appointments
 export const actions: import('./$types').Actions = {
 	// create a new user: returns the generated user's data
 	createuser: async ({ cookies, request }) => {
@@ -65,8 +64,12 @@ export const actions: import('./$types').Actions = {
 	},
 	// delete a user
 	deleteuser: async ({ request, cookies }) => {
-		if (!(await checkNull(cookies.get('token'), true))) {
+		const user = await check(cookies.get('token') ?? '');
+		if (!user.admin) {
 			throw redirect(302, '/login');
+		}
+		if (user.id != 0) {
+			return invalid(400, { msg: 'Csak az "admin" felhasználó törölhet más felhasználót!' });
 		}
 
 		const id = (await request.formData()).get('id');

@@ -35,8 +35,7 @@
 			}}
 		>
 			<input style="display: none;" type="number" name="day" value={selected} />
-
-			<section id="idopontok" class="tartalom row">
+			<section id="idopontok" class="tartalom row pt-2">
 				{#each data.appointments as a}
 					<section>
 						<h3>
@@ -45,7 +44,9 @@
 								(x) => x.appointmentId == a.id
 							)?._sum.maxMemberCount}) -->
 						</h3>
-						<button type="submit" on:click={() => (selected = selected == a.id ? 0 : a.id)}>{selected == a.id ? 'Lemondás' : 'Jelentkezés'}</button>
+						<button class="mt-1" type="submit" on:click={() => (selected = selected == a.id ? 0 : a.id)}
+							>{selected == a.id ? 'Lemondás' : 'Jelentkezés'}</button
+						>
 					</section>
 				{/each}
 			</section>
