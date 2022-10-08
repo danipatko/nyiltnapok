@@ -3,9 +3,14 @@ import { sendVerification } from '$lib/mail/send';
 import verifyToken from '$lib/auth/captcha';
 import { createOTP } from '$lib/auth/totp';
 import { validateEmail } from '$lib/util';
+import config from '../../../config';
 
 export const actions: import('./$types').Actions = {
 	default: async ({ request }) => {
+		// outside deadline
+		if (Date.now() > config.deadline.getTime()) {
+			return invalid(400, { msg: 'A jelentkezés határideje lejárt!' });
+		}
 		// form validation
 		const { 'g-recaptcha-response': token, fullname, email } = Object.fromEntries(await request.formData());
 		if (!(fullname && fullname.toString().match(/[a-zA-Zs+]{1,100}/gm))) {

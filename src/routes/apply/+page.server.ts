@@ -42,6 +42,11 @@ export const actions: import('./$types').Actions = {
 			return invalid(400, { msg: 'Érvénytelen időpont!' });
 		}
 
+		// outside deadline
+		if (Date.now() > config.deadline.getTime()) {
+			return invalid(400, { msg: 'A jelentkezés határideje lejárt!' });
+		}
+
 		// id 0 cancels appointment
 		if (appointmentId == 0) {
 			await prisma.user.update({ data: { groupId: null }, where: { id: user.id } });

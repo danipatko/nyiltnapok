@@ -23,6 +23,10 @@ interface Settings {
 	 * How many digits does the user have to enter
 	 */
 	otpCodeLength: number;
+	/**
+	 * After this date, registering and applying will be disabled
+	 */
+	deadline: Date;
 }
 
 // change your default settings here
@@ -32,7 +36,8 @@ const settings: Settings = {
 	groupCount: 8,
 	groupMemberCount: 20,
 	otpValidFor: 120,
-	otpCodeLength: 8
+	otpCodeLength: 8,
+	deadline: new Date('2022-10-24T23:59:59')
 };
 
 export default settings;
