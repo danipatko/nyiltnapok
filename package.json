@@ -5,12 +5,14 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
+		"start": "node build/",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"db:migrate": "npx prisma migrate dev --name",
+		"db:migrate": "prisma migrate dev --name",
 		"db:wipe": "prisma migrate reset dev",
+		"db:init": "prisma generate && prisma migrate dev --name init",
 		"test": "jest"
 	},
 	"devDependencies": {
