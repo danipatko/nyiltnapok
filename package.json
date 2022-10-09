@@ -41,6 +41,7 @@
 		"@fontsource/fira-mono": "^4.5.0",
 		"@prisma/client": "^4.4.0",
 		"@sendgrid/mail": "^7.7.0",
-		"jsonwebtoken": "^8.5.1"
+		"jsonwebtoken": "^8.5.1",
+		"svelte-turnstile": "^0.1.4"
 	}
 }

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Name from '$lib/components/login/username.svelte';
-	import Email from '$lib/components/login/email.svelte';
-	import { notifications } from '$lib/components/toast';
 	import { applyAction, enhance } from '$app/forms';
+	import Email from '$lib/components/login/email.svelte';
+	import Name from '$lib/components/login/username.svelte';
+	import { notifications } from '$lib/components/toast';
 
-	let stage: number = 0;
+	let stage = 0;
 	let error: string | null = null;
 	$: error ? notifications.send('login', error) : notifications.clear('login');
 </script>
@@ -26,12 +26,15 @@
 		use:enhance={() => {
 			return async ({ result }) => {
 				notifications.clear('login');
-				if (result.type == 'redirect') applyAction(result);
-				else if (result.type == 'invalid') error = result?.data?.msg ?? null;
+				if (result.type === 'redirect') applyAction(result);
+				else if (result.type === 'invalid') error = result?.data?.msg ?? null;
+				// @ts-ignore
+				else if (result.type === 'success' && result.data === 'continue') stage = 1;
 			};
 		}}
 	>
-		<Name shown={stage == 0} next={() => stage++} />
-		<Email shown={stage == 1} />
+		<input style="display: none;" name="stage" id="stage" value={stage} />
+		<Email shown={stage == 0} />
+		<Name shown={stage == 1} />
 	</form>
 </section>

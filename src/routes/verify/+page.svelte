@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
 	import { notifications } from '$lib/components/toast';
-	import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 	const validate = (): boolean => {
 		const ok = !!code.match(/[0-9]{8}/gm);
@@ -12,7 +11,7 @@
 	let error: string | null = null;
 	$: error ? notifications.send('login', error) : notifications.clear('login');
 
-	let code: string = '';
+	let code = '';
 </script>
 
 <header>

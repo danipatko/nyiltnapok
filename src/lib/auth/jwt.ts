@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 if (!import.meta.env.VITE_PRIVATE_SECRET) throw new Error('Cannot find VITE_PRIVATE_SECRET in environment.');
-const defaultExpiry: string = '30d';
+const defaultExpiry = '30d';
 
 interface TokenData {
 	id: number;
@@ -26,7 +26,7 @@ const check = (token: string): Promise<TokenData> => {
 	});
 };
 
-const checkNull = async (token: string | undefined, admin: boolean = false): Promise<TokenData | null> => {
+const checkNull = async (token: string | undefined, admin = false): Promise<TokenData | null> => {
 	return !token
 		? null
 		: check(token)

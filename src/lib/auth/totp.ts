@@ -43,10 +43,10 @@ export class TOTP {
 	 *
 	 * @return: a numeric String in base 10
 	 */
-	public static generateTOTP(key: string, time: string, returnDigits: number = 8, algorithm: Algorithm = 'sha256'): string {
+	public static generateTOTP(key: string, time: string, returnDigits = 8, algorithm: Algorithm = 'sha256'): string {
 		let result: string | null = null;
 		while (time.length < 16) time = '0' + time;
-		let hash: Buffer = TOTP.hmacSha(algorithm, key, time);
+		const hash: Buffer = TOTP.hmacSha(algorithm, key, time);
 
 		const offset: number = hash[hash.length - 1] & 0xf;
 		const binary: number =
@@ -64,7 +64,7 @@ export class TOTP {
  * Generates a new OTP code and its shared secret
  */
 const getCode = (sharedSecret: string = randstr(algoLengths[defaultAlgorithm])): [string, string] => {
-	let T = Math.floor(new Date().getSeconds() / stepTime);
+	const T = Math.floor(new Date().getSeconds() / stepTime);
 	let steps = T.toString(16);
 	while (steps.length < 16) steps = '0' + steps;
 

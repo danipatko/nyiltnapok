@@ -1,8 +1,9 @@
-import { error, invalid, redirect } from '@sveltejs/kit';
-import { sendVerification } from '$lib/mail/send';
 import verifyToken from '$lib/auth/captcha';
 import { createOTP } from '$lib/auth/totp';
+import client from '$lib/db/client';
+import { sendVerification } from '$lib/mail/send';
 import { validateEmail } from '$lib/util';
+import { error, invalid, redirect } from '@sveltejs/kit';
 import config from '../../../config';
 
 export const actions: import('./$types').Actions = {
@@ -12,15 +13,24 @@ export const actions: import('./$types').Actions = {
 			return invalid(400, { msg: 'A jelentkezés határideje lejárt!' });
 		}
 		// form validation
-		const { 'g-recaptcha-response': token, fullname, email } = Object.fromEntries(await request.formData());
-		if (!(fullname && fullname.toString().match(/[a-zA-Zs+]{1,100}/gm))) {
-			return invalid(400, { msg: 'Érvénytelen név!' });
-		}
+		const { 'cf-turnstile-response': token, fullname, email, stage } = Object.fromEntries(await request.formData());
+		import.meta.env.DEV && console.debug({ stage });
+
 		if (!(email && validateEmail(email.toString()))) {
 			return invalid(400, { msg: 'Érvénytelen vagy hiányzó email cím.' });
 		}
-		if (!(token && (await verifyToken(token.toString())))) {
+		if (!import.meta.env.DEV && !(token && (await verifyToken(token.toString())))) {
 			return invalid(400, { msg: 'Töltse ki a captcha mezőt is!' });
+		}
+
+		// register user
+		if (stage == '0') {
+			const res = await client.user.count({ where: { email: `${email}` } });
+			if (res !== 1) return 'continue';
+		}
+		// continue validation
+		else if (!fullname || !fullname.toString().match(/[a-zA-Z\s+]{1,100}/gm)) {
+			return invalid(400, { msg: 'Érvénytelen név!' });
 		}
 
 		// create OTP

@@ -36,7 +36,7 @@ export const actions: import('./$types').Actions = {
 		}
 
 		// form validation
-		let { day } = Object.fromEntries(await request.formData());
+		const { day } = Object.fromEntries(await request.formData());
 		const appointmentId = !day ? NaN : Number(day.toString());
 		if (isNaN(appointmentId) || appointmentId < 0 || appointmentId > config.appointments.length) {
 			return invalid(400, { msg: 'Érvénytelen időpont!' });
