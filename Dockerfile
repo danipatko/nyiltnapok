@@ -14,12 +14,12 @@ RUN npx prisma generate
 
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs:18
+# FROM gcr.io/distroless/nodejs:18
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY --from=builder /app /app
+# COPY --from=builder /app /app
 
 EXPOSE 3000
 
-CMD ["build/index.js"]
+CMD ["./start.sh"]

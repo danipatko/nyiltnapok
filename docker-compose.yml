@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  web:
+    build: .
+    container_name: nyiltnap
+    depends_on:
+      - db
+    ports:
+      - '3000:3000'
+    expose:
+      - 3000
+    networks:
+      - postgres
+
+  db:
+    image: postgres
+    hostname: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: default
+      POSTGRES_PASSWORD: password
+    networks:
+      - postgres
+    restart: unless-stopped
+    volumes:
+      - postgres:/data/postgres
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
