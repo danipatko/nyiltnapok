@@ -19,9 +19,6 @@ export const actions: import('./$types').Actions = {
 		if (!(email && validateEmail(email.toString()))) {
 			return invalid(400, { msg: 'Érvénytelen vagy hiányzó email cím.' });
 		}
-		if (!import.meta.env.DEV && !(token && (await verifyToken(token.toString())))) {
-			return invalid(400, { msg: 'Töltse ki a captcha mezőt is!' });
-		}
 
 		// register user
 		if (stage == '0') {
@@ -31,6 +28,10 @@ export const actions: import('./$types').Actions = {
 		// continue validation
 		else if (!fullname || !fullname.toString().match(/[a-zA-Z\s+]{1,100}/gm)) {
 			return invalid(400, { msg: 'Érvénytelen név!' });
+		}
+
+		if (!import.meta.env.DEV && !(token && (await verifyToken(token.toString())))) {
+			return invalid(400, { msg: 'Töltse ki a captcha mezőt is!' });
 		}
 
 		// create OTP

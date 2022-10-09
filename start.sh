@@ -1,1 +1,1 @@
-npm run db:migrate init && node build/index.js 
+npm run db:migrate init && node build/index.js

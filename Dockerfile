@@ -1,4 +1,10 @@
-FROM node:lts as builder
+FROM node:16-slim as base
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
+# needed by prisma
+
+FROM base as builder
 
 WORKDIR /app
 
@@ -6,19 +12,24 @@ COPY package*.json ./
 
 COPY prisma ./prisma/
 
+RUN npm ci
+
 COPY . .
 
-RUN npm i
+RUN sed -i s/localhost/postgres/ .env && \
+    npm run build
 
-RUN npx prisma generate
+FROM base as runner
 
-RUN npm run build
+WORKDIR /app
 
-# FROM gcr.io/distroless/nodejs:18
+COPY --from=builder /app/package*.json ./
 
-# WORKDIR /app
+RUN npm ci --only=production
 
-# COPY --from=builder /app /app
+COPY prisma ./prisma/
+COPY --from=builder /app/start.sh /app/.env ./
+COPY --from=builder /app/build ./build
 
 EXPOSE 3000
 
