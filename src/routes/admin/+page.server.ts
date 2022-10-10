@@ -1,11 +1,10 @@
+import prisma, { getGroups } from '$lib/db/client';
 import { invalid, redirect } from '@sveltejs/kit';
 import { check, checkNull } from '$lib/auth/jwt';
 import { UserRole } from '@prisma/client';
 import { hash } from '$lib/util.server';
-import prisma from '$lib/db/client';
 
-const selectMembers = { select: { fullname: true, email: true, lastLogin: true } };
-const selectGroups = { select: { id: true, maxMemberCount: true, members: selectMembers } };
+const selectMembers = { fullname: true, email: true, lastLogin: true };
 
 // displays
 // - appointments -> groups -> group members
@@ -17,23 +16,26 @@ export const load: import('./$types').PageServerLoad = async ({ cookies }) => {
 		throw redirect(302, '/login');
 	}
 
-	const appointments = await prisma.appointment.findMany({
-		include: { groups: selectGroups }
-	});
+	const appointments = (await prisma.appointment.findMany({ include: { members: { select: selectMembers, orderBy: { fullname: 'asc' } } } })).map(
+		(x) => ({
+			...x,
+			members: getGroups(x.totalMembers, x.totalGroups, x.members)
+		})
+	);
+
 	const admins = await prisma.user.findMany({
 		select: { email: true, fullname: true, id: true },
 		where: { role: UserRole.admin }
 	});
+
 	// registered but did not apply
-	const restOfUsers = await prisma.user.findMany({ select: { createdAt: true }, where: { groupId: null, NOT: { role: UserRole.admin } } });
+	const restOfUsers = await prisma.user.findMany({ select: { createdAt: true }, where: { appointmentId: null, NOT: { role: UserRole.admin } } });
 
 	return { appointments, restOfUsers, admins };
 };
 
 // actions
 // - create/delete admin users
-// - create/delete groups
-// - create/delete appointments
 export const actions: import('./$types').Actions = {
 	// create a new user: returns the generated user's data
 	createuser: async ({ cookies, request }) => {
@@ -82,39 +84,5 @@ export const actions: import('./$types').Actions = {
 			return invalid(400, { msg: 'Ez a felhasználó nem törölhető!' });
 		}
 		return { id };
-	},
-	// create new group
-	creategroup: async ({ request, cookies }) => {
-		const user = await checkNull(cookies.get('token'), true);
-		if (!user) {
-			throw redirect(302, '/login');
-		}
-
-		const { id, max } = Object.fromEntries(await request.formData());
-		const appointmentId = !id ? NaN : Number(id.toString());
-		const maxMemberCount = !max ? NaN : Number(max.toString());
-
-		if (isNaN(appointmentId) || isNaN(maxMemberCount)) {
-			return invalid(400, { msg: 'Hiányzó ID vagy létszám!' });
-		}
-
-		const res = await prisma.group.create({ ...selectGroups, data: { appointmentId, maxMemberCount, creatorId: user.id } }).catch(() => null);
-		return res ?? invalid(400, { msg: 'Nem sikerült létrehozni a csoportot!' });
-	},
-	// create new group
-	deletegroup: async ({ request, cookies }) => {
-		if (!(await checkNull(cookies.get('token'), true))) {
-			throw redirect(302, '/login');
-		}
-
-		const { id } = Object.fromEntries(await request.formData());
-		const gid = !id ? NaN : Number(id.toString());
-
-		if (isNaN(gid)) {
-			return invalid(400, { msg: 'Hiányzó ID!' });
-		}
-
-		const group = await prisma.group.delete({ where: { id: gid } }).catch(() => null);
-		return group ? { id: group.id } : invalid(400, { msg: 'Nem sikerült törölni a csoportot!' });
 	}
 };
