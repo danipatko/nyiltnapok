@@ -25,10 +25,12 @@ prisma.$connect().then(async () => {
 					createdAppointments: { createMany: { data: [...config.appointments] } },
 					createdGroups: {
 						createMany: {
-							data: Array.from({ length: config.appointments.length * config.groupCount }, (_, i) => i).map((x) => ({
-								appointmentId: (x % config.appointments.length) + 1,
-								maxMemberCount: config.groupMemberCount
-							}))
+							data: Array(config.appointments.length * config.groupCount)
+								.fill(null)
+								.map((_, i) => ({
+									appointmentId: Math.floor(i / config.groupCount) + 1,
+									maxMemberCount: config.groupMemberCount
+								}))
 						}
 					}
 				}

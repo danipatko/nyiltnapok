@@ -16,7 +16,7 @@ export const actions: import('./$types').Actions = {
 			return invalid(401, { msg: 'Hibás jelszó vagy e-mail!' });
 		}
 
-		cookies.set('token', sign({ admin: true, email: email.toString(), id: user.id }));
+		cookies.set('token', sign({ admin: true, email: email.toString(), id: user.id }), { secure: false, maxAge: 60 * 60 * 24 * 30 });
 		throw redirect(303, '/admin');
 	}
 };

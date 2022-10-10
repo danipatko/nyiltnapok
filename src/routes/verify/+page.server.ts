@@ -34,7 +34,7 @@ export const actions: import('./$types').Actions = {
 
 		// set header for 30 days
 		cookies.set('token', sign({ admin: user.role == UserRole.admin, email: user.email, id: user.id }), {
-			secure: !import.meta.env.DEV,
+			secure: false,
 			maxAge: 60 * 60 * 24 * 30
 		});
 		throw redirect(303, '/verify/success');
