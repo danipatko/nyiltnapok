@@ -34,8 +34,8 @@ const notifyAppointment = async (to: string, name: string, appointmentLabel: str
 		to,
 		from: import.meta.env.VITE_SENDGRID_USER,
 		subject: 'Szent László nyílt napok - sikeres jelentkezés',
-		text: `Kedves ${name}!\nSikeresen jelentkeztél a ${appointmentLabel} időpontra!\n\nKérlek ne válaszolj erre az e-mailre.`,
-		html: `Kedves ${name}!<br/>Sikeresen jelentkeztél a ${appointmentLabel} időpontra!<br/>Kérlek ne válaszolj erre az e-mailre.`
+		text: `Kedves ${name}!\nSikeresen jelentkeztél a ${appointmentLabel} időpontra!\n\nTovábbi teendőd nincs. A regisztráció lezárulása után küldünk majd egy másik levelet a részletekkel. Ha közben szeretnél változtatni, az oldalon megteheted, viszont óránként csak egyszer, avagy legkorábban egy óra múlva, egészen a jelentkezési időszak lezárulásáig. Kérlek ne válaszolj erre az e-mailre.`,
+		html: `Kedves ${name}!<br/>Sikeresen jelentkeztél a ${appointmentLabel} időpontra!<br/>További teendőd nincs. A regisztráció lezárulása után küldünk majd egy másik levelet a részletekkel. Ha közben szeretnél változtatni, az oldalon megteheted, viszont óránként csak egyszer, avagy legkorábban egy óra múlva, egészen a jelentkezési időszak lezárulásáig. Kérlek ne válaszolj erre az e-mailre.`
 	};
 
 	return send(to, msg);
