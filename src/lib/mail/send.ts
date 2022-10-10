@@ -23,7 +23,7 @@ const sendVerification = async (to: string, name: string, code: string): Promise
 		from: import.meta.env.VITE_SENDGRID_USER,
 		subject: 'Szent László nyílt napok - erősítsd meg e-mail címedet a folytatáshoz',
 		text: `Kedves ${name}!\nKöszönjük a jelentkezést. A következő kóddal tudod befejezni a bejelentkezést.\n${code}\n\nKérlek ne válaszolj erre az e-mailre.`,
-		html: `Kedves ${name}!<br>Köszönjük a jelentkezést. A következő kóddal tudod befejezni a bejelentkezést.<br><b>${code}<b><br>Kérlek ne válaszolj erre az e-mailre.`
+		html: `Kedves ${name}!<br/>Köszönjük a jelentkezést. A következő kóddal tudod befejezni a bejelentkezést.<br/><strong>${code}<strong><br/>Kérlek ne válaszolj erre az e-mailre.`
 	};
 
 	return send(to, msg);
@@ -33,9 +33,9 @@ const notifyAppointment = async (to: string, name: string, appointmentLabel: str
 	const msg: sendGrid.MailDataRequired = {
 		to,
 		from: import.meta.env.VITE_SENDGRID_USER,
-		subject: 'Szent László nyílt napok - erősítsd meg e-mail címedet a folytatáshoz',
-		text: `Kedves ${name}!\nSikeres jelentkezés a ${appointmentLabel} időpontra! Ne késs vagy nem tudom. \n\nKérlek ne válaszolj erre az e-mailre.`,
-		html: `Kedves ${name}!<br>Sikeres jelentkezés a ${appointmentLabel} időpontra! Ne késs vagy nem tudom. <br>Kérlek ne válaszolj erre az e-mailre.`
+		subject: 'Szent László nyílt napok - sikeres jelentkezés',
+		text: `Kedves ${name}!\nSikeresen jelentkeztél a ${appointmentLabel} időpontra!\n\nKérlek ne válaszolj erre az e-mailre.`,
+		html: `Kedves ${name}!<br/>Sikeresen jelentkeztél a ${appointmentLabel} időpontra!<br/>Kérlek ne válaszolj erre az e-mailre.`
 	};
 
 	return send(to, msg);
