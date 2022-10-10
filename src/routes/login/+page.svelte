@@ -17,8 +17,7 @@
 <section id="login" class="tartalom">
 	<h2>bejelentkezés</h2>
 	<p>
-		Add meg a neved és e-mail címed a jelentkezéshez! A megadott e-mail címre küldeni fogunk egy 8-jegyű kódót, amivel be tudod magadat azonosítani.
-		Amennyiben már regisztráltál, ugyanezt a procedúrát követve ismét be tudsz jelentkezni.
+		Add meg az e-mail címed és neved a jelentkezéshez! A megadott e-mail címre küldeni fogunk egy 8-jegyű kódót, amivel be tudod magadat azonosítani.
 	</p>
 	<form
 		method="POST"

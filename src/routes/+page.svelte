@@ -9,11 +9,12 @@
 
 <section class="tartalom">
 	<p>
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet vel natus nesciunt soluta ipsam vitae nemo. Aperiam adipisci alias exercitationem
-		maiores et accusantium, autem soluta consequatur eaque repellat? Beatae, sapiente. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
-		quod animi cum distinctio expedita earum et quasi saepe laborum, qui cupiditate fugit iusto accusamus ad dolor voluptatibus modi, quibusdam
-		recusandae. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate totam iure dolor pariatur, assumenda facere, velit, ipsum tenetur
-		repellendus ratione impedit temporibus consectetur esse magni ad illum sit nobis at!
+		Két év után ismét nyílt napokkal jelentkezik a Kőbányai Szent László Gimnázium! Három napon keresztül, naponta nyolc, a rendszer által beosztott
+		turnusonként vezetjük be a leendő középiskolásokat iskolánkba. A körbevezetésen magyar-olasz kéttannyelvű, emelt szintű angol nyelv, emelt szintű
+		matematika, emelt szintű rajz és vizuális kultúra, emelt szintű német nyelv, emelt szintű természetismeret, emelt szintű informatika, valamint
+		emelt szintű tömegkommunikáció és médiaismeret tagozatos tanulóink mutatják be szakukat különböző izgalmas előadásokon keresztül. Bemutatásra
+		kerül az iskolai élet is, a diákönkormányzat lelkes tagjai által. Jelentkezni ezen a weboldalon, 2022. október 11. és 2022. október 16. között
+		lehet.
 	</p>
 	<a href="/apply"><button>Jelentkezés</button></a>
 </section>

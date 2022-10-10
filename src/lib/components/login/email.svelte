@@ -24,7 +24,7 @@
 
 	{#if !import.meta.env.DEV}
 		<div class="pt-2">
-			<Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITEKEY} />
+			<Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITEKEY} theme="light" />
 		</div>
 	{/if}
 
