@@ -34,7 +34,7 @@ const settings: Settings = {
 	appointments: [{ label: '2022. október 25. 14:20' }, { label: '2022. október 26. 14:20' }, { label: '2022. október 27. 14:20' }],
 	appointmentCooldown: 1,
 	groupCount: 8,
-	groupMemberCount: 20,
+	groupMemberCount: 25,
 	otpValidFor: 120,
 	otpCodeLength: 8,
 	deadline: new Date('2022-10-24T23:59:59')

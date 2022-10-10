@@ -22,54 +22,14 @@
 		{#each data.appointments as app}
 			<div class="appointment-container">
 				<fieldset>
-					<legend><h3>{app.label} | {app.groups.length} csoport</h3></legend>
-					<div class="new-group">
-						<p>Új csoport hozzáadása</p>
-						<form
-							action="?/creategroup"
-							method="POST"
-							use:enhance={() => {
-								notifications.clearAll();
-								return async ({ result }) => {
-									if (result.type == 'invalid') {
-										notifications.send('newgroup', result.data?.msg);
-									} else if (result.type == 'success') {
-										// @ts-ignore
-										app.groups = [...app.groups, result.data];
-									}
-								};
-							}}
-						>
-							<input style="display: none;" type="text" name="id" value={app.id} />
-							<input required aria-required type="text" name="max" placeholder="Csoportlétszám" />
-							<button type="submit">Hozzáadás</button>
-						</form>
-					</div>
+					<legend><h3>{app.label} | {app.totalGroups} csoport</h3></legend>
 					<div class="group-container">
-						{#each app.groups as g}
+						{#each app.members as g}
 							<div class="group">
 								<div>
-									<h4>Csoport #{g.id} ({g.members.length}/{g.maxMemberCount} fő)</h4>
-									<a target="_blank" href={`/admin/dl?format=${type}&id=${g.id}`}>Letöltés</a>
-									<div>
-										<form
-											action="?/deletegroup"
-											method="POST"
-											use:enhance={() => {
-												notifications.clearAll();
-												return async ({ result }) => {
-													if (result.type == 'invalid') {
-														notifications.send('deletegroup', result.data?.msg);
-													} else if (result.type == 'success') {
-														app.groups = app.groups.filter((x) => x.id != result.data?.id);
-													}
-												};
-											}}
-										>
-											<input style="display: none;" type="text" name="id" value={g.id} />
-											<button type="submit">Törlés</button>
-										</form>
-									</div>
+									<h4>Csoport #{g.id + 1} ({g.members.length}/{app.totalMembers} fő)</h4>
+									<a target="_blank" href={`/admin/dl?aid=${app.id}&format=${type}&id=${g.id}`}>Letöltés</a>
+									<div />
 								</div>
 								<ul>
 									{#each g.members as m}
@@ -162,14 +122,6 @@
 		gap: 1rem;
 	}
 
-	.new-group {
-		margin-bottom: 2rem;
-		display: flex;
-		justify-content: start;
-		align-items: center;
-		gap: 1rem;
-	}
-
 	.new-admin {
 		display: flex;
 		flex-direction: column;
@@ -192,14 +144,11 @@
 		gap: 0.5rem;
 	}
 
-	.group button,
 	.group a,
-	.new-group button,
 	.admin button,
 	.new-admin button,
 	.new-admin input,
-	.admin input,
-	.new-group input {
+	.admin input {
 		padding: 0.3rem 0.6rem;
 		font-size: inherit;
 	}

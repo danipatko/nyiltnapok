@@ -29,38 +29,24 @@ model User {
     lastNotification    DateTime
 
     // for guests
-    groupId             Int? 
-    joinedGroup         Group?      @relation("guestRelation", fields: [groupId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+    appointmentId       Int?    @map("appointmentId")
+    joinedAppointment   Appointment?    @relation("guestRelation", fields: [appointmentId], references: [id], onUpdate: Cascade, onDelete: SetNull) 
 
     // for admins
     password            String?
     createdAppointments Appointment[]
-    createdGroups       Group[]
 }
 
 model Appointment {
-    id          Int         @id @unique @default(autoincrement())
-
-    label       String
-
-    creatorId   Int
-    createdBy   User        @relation(fields: [creatorId], references: [id], onDelete: Cascade)
-    createdAt   DateTime    @default(now())
-
-    groups      Group[]
-}
-
-model Group {
     id              Int         @id @unique @default(autoincrement())
 
-    appointmentId   Int
-    appointment     Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
-    
-    maxMemberCount  Int
-    
-    creatorId       Int
-    createdBy       User        @relation(fields: [creatorId], references: [id], onDelete: Cascade) 
-    createdAt       DateTime    @default(now())
+    label           String
+    totalMembers    Int
+    totalGroups     Int
 
     members         User[]      @relation("guestRelation")
+
+    creatorId       Int
+    creator         User        @relation(fields: [creatorId], references: [id])
 }
+

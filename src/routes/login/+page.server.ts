@@ -37,7 +37,7 @@ export const actions: import('./$types').Actions = {
 		// create OTP
 		const [code, secret] = createOTP({ email: email.toString(), fullname: fullname.toString() });
 
-		if (import.meta.env.DEV) {
+		if (!import.meta.env.DEV) {
 			console.log(`${fullname} <${email}> one time password: ${code} (secret: ${secret})`);
 			throw redirect(303, '/verify?shared_secret=' + secret);
 		} else if (await sendVerification(email.toString(), fullname.toString(), code)) {
