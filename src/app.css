@@ -87,6 +87,11 @@ footer {
 	text-align: center;
 }
 
+.button {
+	text-decoration: none;
+}
+
+.button,
 button {
 	padding: 1em 1.5em;
 
@@ -101,6 +106,8 @@ button {
 
 	transition: 0.2s;
 }
+
+.button:hover,
 button:hover {
 	background-color: var(--barna);
 	cursor: pointer;

@@ -13,7 +13,7 @@
 </header>
 
 <section id="login" class="tartalom">
-	<h2>bejelentkezés</h2>
+	<h2>Bejelentkezés</h2>
 	<p>Add meg az e-mail címed és neved a jelentkezéshez! A megadott e-mail címre küldeni fogunk egy 8-jegyű kódot, amivel azonosítani tudod magad.</p>
 	<form
 		method="POST"

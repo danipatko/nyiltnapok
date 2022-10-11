@@ -1,7 +1,7 @@
 import { checkNull } from '$lib/auth/jwt';
 import { redirect } from '@sveltejs/kit';
 import config from '../../../../config';
-import prisma, { getGroups } from '$lib/db/client';
+import prisma from '$lib/db/client';
 
 const ln = '\r\n';
 

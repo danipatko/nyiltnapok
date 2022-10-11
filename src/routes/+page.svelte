@@ -20,9 +20,9 @@
 </section>
 <section class="tartalom row">
 	<h2>Szekciókat bemutató videók</h2>
-	<!-- <iframe
+	<iframe
 		class="yt-embed"
-		src="https://www.youtube.com/embed/3jhy7PNq4Dw"
+		src="https://www.youtube.com/embed/bInowLT-Y_4"
 		title="YouTube video player"
 		frameborder="0"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -30,7 +30,7 @@
 	/>
 	<iframe
 		class="yt-embed"
-		src="https://www.youtube.com/embed/AdJaWHk_HAk"
+		src="https://www.youtube.com/embed/ecguGx6b9XE"
 		title="YouTube video player"
 		frameborder="0"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -38,7 +38,7 @@
 	/>
 	<iframe
 		class="yt-embed"
-		src="https://www.youtube.com/embed/spNonD0gi4I"
+		src="https://www.youtube.com/embed/_ZYar0d1K1I"
 		title="YouTube video player"
 		frameborder="0"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -46,7 +46,7 @@
 	/>
 	<iframe
 		class="yt-embed"
-		src="https://www.youtube.com/embed/wkH3XEBQZks"
+		src="https://www.youtube.com/embed/9wAyXKzLqno"
 		title="YouTube video player"
 		frameborder="0"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -54,7 +54,7 @@
 	/>
 	<iframe
 		class="yt-embed"
-		src="https://www.youtube.com/embed/TK-RPjazM4E"
+		src="https://www.youtube.com/embed/vRTkgXKJ5-8"
 		title="YouTube video player"
 		frameborder="0"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -62,12 +62,28 @@
 	/>
 	<iframe
 		class="yt-embed"
-		src="https://www.youtube.com/embed/8AjZMvFCGAI"
+		src="https://www.youtube.com/embed/wpq_WFUOtyc"
 		title="YouTube video player"
 		frameborder="0"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 		allowfullscreen
-	/> -->
+	/>
+	<iframe
+		class="yt-embed"
+		src="https://www.youtube.com/embed/rATocQQkQJ0"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen
+	/>
+	<iframe
+		class="yt-embed"
+		src="https://www.youtube.com/embed/nMP0l5nawRA"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen
+	/>
 </section>
 
 <style>
