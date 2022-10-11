@@ -8,18 +8,41 @@
 </header>
 
 <section class="tartalom">
+	<h3>Két év után ismét nyílt napokkal jelentkezik a Kőbányai Szent László Gimnázium!</h3>
 	<p>
-		Két év után ismét nyílt napokkal jelentkezik a Kőbányai Szent László Gimnázium! Három napon keresztül, naponta nyolc, a rendszer által beosztott
-		turnusonként vezetjük be a leendő középiskolásokat iskolánkba. A körbevezetésen magyar-olasz kéttannyelvű, emelt szintű angol nyelv, emelt szintű
-		matematika, emelt szintű rajz és vizuális kultúra, emelt szintű német nyelv, emelt szintű természetismeret, emelt szintű informatika, valamint
-		emelt szintű tömegkommunikáció és médiaismeret tagozatos tanulóink mutatják be szakukat különböző izgalmas előadásokon keresztül. Bemutatásra
-		kerül az iskolai élet is, a diákönkormányzat lelkes tagjai által. Jelentkezni ezen a weboldalon, 2022. október 11. és 2022. október 16. között
-		lehet.
+		A leendő középiskolásokat három nap során, turnusokban vezetjük körbe az iskolánkban. A vezetés nyolc állomásból áll, a csoportbeosztás
+		automatikusan történik.
+	</p>
+	<p>A körbevezetésen a következő szakokat mutatják be az adott tagozatra járó diákjaink különböző izgalmas előadásokon keresztül:</p>
+	<div>
+		<ul>
+			<li>magyar-olasz kéttannyelvű</li>
+			<li>emelt szintű angol nyelv</li>
+			<li>emelt szintű matematika</li>
+			<li>emelt szintű rajz és vizuális kultúra</li>
+			<li>emelt szintű német nyelv</li>
+			<li>emelt szintű természetismeret</li>
+			<li>emelt szintű informatika</li>
+			<li>emelt szintű tömegkommunikáció és médiaismeret</li>
+		</ul>
+	</div>
+	<p>
+		Bemutatásra kerül az iskolai élet is, a diákönkormányzat lelkes tagjai által. A jelentkezés <strong
+			>2022. október 12. 12:00 órától, azaz déltől indul</strong
+		>
+		és <strong>2022. október 16-án 20:00 órakor zárul</strong>.
+	</p>
+	<p>
+		Kedves Szülők! <strong>A nyíltnapi körbevezetés a leendő gimnazistáknak szól</strong>, kérjük, hogy oda ne foglaljanak helyet. Szervezünk viszont
+		egy külön <strong>szülői tájékoztatót</strong>, ahova Önöket, szülőket várnánk nagyon szívesen. A megnövekedett érdeklődés miatt itt is
+		regisztrációhoz kell kötnünk az eseményt. Ne aggódjanak viszont, ha ide nem férnének be:
+		<strong>a szülőknek szóló tájékoztatót online is lehet majd követni</strong>. A személyes látogatói regisztrációt biztosító applikáció még nem
+		készült el, de amint kész lesz, a honlapon és az iskola hivatalos facebook oldalán közzétesszük.
 	</p>
 	<a href="/apply"><button>Jelentkezés</button></a>
 </section>
 <section class="tartalom row">
-	<h2>Szekciókat bemutató videók</h2>
+	<h2>Tagozatokat bemutató videók</h2>
 	<iframe
 		class="yt-embed"
 		src="https://www.youtube.com/embed/bInowLT-Y_4"
@@ -89,5 +112,13 @@
 <style>
 	p {
 		text-align: justify;
+	}
+
+	.tartalom {
+		gap: 1.5rem;
+	}
+
+	div {
+		text-align: left;
 	}
 </style>
