@@ -264,7 +264,7 @@ h3 {
 @media all and (max-width: 800px) {
 	main {
 		padding: 2vh 5%;
-		gap: 4em;
+		gap: 2em;
 	}
 
 	header {
@@ -299,6 +299,10 @@ h3 {
 	}
 	h3 {
 		margin-bottom: 3em -2em;
+	}
+	p {
+		width: 100%;
+		text-align: left;
 	}
 
 	iframe {
