@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
-	import { notifications } from '$lib/components/toast';
+	import toast from 'svelte-french-toast';
 </script>
 
 <main>
@@ -10,12 +10,11 @@
 		id="form"
 		use:enhance={() => {
 			return async ({ result }) => {
-				notifications.clearAll();
 				if (result.type == 'redirect') {
 					applyAction(result);
 				}
 				if (result.type == 'invalid') {
-					notifications.send('admin', result.data?.msg);
+					toast.error(result.data?.msg ?? 'Váratlan hiba történt!');
 				}
 			};
 		}}

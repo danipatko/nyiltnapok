@@ -1,19 +1,15 @@
 <script lang="ts">
-	import { notifications } from '$lib/components/toast';
 	import { validateEmail } from '$lib/util';
 	import { Turnstile } from 'svelte-turnstile';
+	import toast from 'svelte-french-toast';
 
 	const validate = () => {
 		const ok = validateEmail(email);
-		error = ok ? null : 'Érvénytelen e-mail cím!';
+		if (!ok) toast.error('Érvénytelen e-mail cím!');
 		return ok;
 	};
 
-	let error: string | null = null;
-	$: error ? notifications.send('login', error) : notifications.clear('login');
-
 	let email = '';
-
 	export let shown: boolean;
 </script>
 

@@ -43,8 +43,11 @@ export const actions: import('./$types').Actions = {
 		}
 
 		// outside deadline
-		if (Date.now() > config.deadline.getTime()) {
+		if (!import.meta.env.DEV && Date.now() > config.deadline.getTime()) {
 			return invalid(400, { msg: 'A jelentkezés határideje lejárt!' });
+		}
+		if (!import.meta.env.DEV && Date.now() < config.startDate.getTime()) {
+			return invalid(400, { msg: 'A jelentkezés még nem kezdődött el!' });
 		}
 
 		// id 0 cancels appointment
@@ -61,13 +64,11 @@ export const actions: import('./$types').Actions = {
 			});
 		}
 
-		// get group with least members
-
 		const appointment = await prisma.appointment.findFirst({
-			select: { totalMembers: true, label: true, _count: { select: { members: true } } },
+			select: { totalMembers: true, totalGroups: true, label: true, _count: { select: { members: true } } },
 			where: { id: appointmentId }
 		});
-		if (!appointment || appointment._count.members > appointment.totalMembers) {
+		if (!appointment || appointment._count.members >= appointment.totalMembers * appointment.totalGroups) {
 			return invalid(404, { msg: 'Az időpont betelt.' });
 		}
 

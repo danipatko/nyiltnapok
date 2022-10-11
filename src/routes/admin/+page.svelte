@@ -1,10 +1,10 @@
 <script lang="ts">
+	import toast from 'svelte-french-toast';
 	import { enhance } from '$app/forms';
 
 	export let data: import('./$types').PageServerData;
 
 	let type: 'tsv' | 'csv' = 'csv';
-	import { notifications } from '$lib/components/toast';
 </script>
 
 <div class="container">
@@ -53,12 +53,12 @@
 					action="?/deleteuser"
 					method="POST"
 					use:enhance={() => {
-						notifications.clearAll();
 						return async ({ result }) => {
 							if (result.type == 'invalid') {
-								notifications.send('deleteuser', result.data?.msg);
+								toast.error(result.data?.msg ?? 'Váratlan hiba történt');
 							} else if (result.type == 'success') {
 								data.admins = data.admins.filter((x) => x.id != result.data?.id);
+								toast.success('Felhasználó sikeresen törölve!');
 							}
 						};
 					}}
@@ -76,13 +76,13 @@
 			method="POST"
 			use:enhance={({ form }) => {
 				return async ({ result }) => {
-					notifications.clearAll();
 					if (result.type == 'invalid') {
-						notifications.send('createuser', result.data?.msg);
+						toast.error(result.data?.msg ?? 'Váratlan hiba történt');
 					} else if (result.type == 'success' && result.data) {
 						form.reset();
 						// @ts-ignore
 						data.admins = [...data.admins, result.data];
+						toast.success('Felhasználó sikeresen létrehozva!');
 					}
 				};
 			}}

@@ -51,13 +51,9 @@ export const GET: import('./$types').RequestHandler = async ({ cookies, url }) =
 	}
 
 	// generate csv
-	const result: string[] = [
-		`${group.label} - Csoport #${group.id} névsora (${group.members.length}/${group.totalMembers} fő)`,
-		'',
-		join(['név', 'e-mail', 'csoport szám', 'regisztráció ideje'], separator)
-	];
+	const result: string[] = [join(['név', 'e-mail', 'csoport szám'], separator)];
 	for (const member of group.members) {
-		result.push(join([member.fullname, member.email, group.id.toString(), member.createdAt.toLocaleString()], separator));
+		result.push(join([member.fullname, member.email, group.id.toString()], separator));
 	}
 
 	return new Response('\uFEFF' + result.join(ln), {

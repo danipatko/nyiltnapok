@@ -9,9 +9,13 @@ import config from '../../../config';
 export const actions: import('./$types').Actions = {
 	default: async ({ request }) => {
 		// outside deadline
-		if (Date.now() > config.deadline.getTime()) {
+		if (!import.meta.env.DEV && Date.now() > config.deadline.getTime()) {
 			return invalid(400, { msg: 'A jelentkezés határideje lejárt!' });
 		}
+		if (!import.meta.env.DEV && Date.now() < config.startDate.getTime()) {
+			return invalid(400, { msg: 'A jelentkezés még nem kezdődött el!' });
+		}
+
 		// form validation
 		const { 'cf-turnstile-response': token, fullname, email, stage } = Object.fromEntries(await request.formData());
 		import.meta.env.DEV && console.debug({ stage });

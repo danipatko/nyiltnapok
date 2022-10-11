@@ -20,7 +20,7 @@
 </section>
 <section class="tartalom row">
 	<h2>Szekciókat bemutató videók</h2>
-	<iframe
+	<!-- <iframe
 		class="yt-embed"
 		src="https://www.youtube.com/embed/3jhy7PNq4Dw"
 		title="YouTube video player"
@@ -67,5 +67,11 @@
 		frameborder="0"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 		allowfullscreen
-	/>
+	/> -->
 </section>
+
+<style>
+	p {
+		text-align: justify;
+	}
+</style>

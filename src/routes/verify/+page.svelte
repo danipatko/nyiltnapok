@@ -1,15 +1,12 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
-	import { notifications } from '$lib/components/toast';
+	import toast from 'svelte-french-toast';
 
 	const validate = (): boolean => {
 		const ok = !!code.match(/[0-9]{8}/gm);
-		error = ok ? null : 'Érvénytelen kód.';
+		if (!ok) toast.error('Érvénytelen kód.');
 		return ok;
 	};
-
-	let error: string | null = null;
-	$: error ? notifications.send('login', error) : notifications.clear('login');
 
 	let code = '';
 </script>
@@ -24,8 +21,7 @@
 		method="POST"
 		use:enhance={() => {
 			return async ({ result }) => {
-				notifications.clear('login');
-				if (result.type == 'invalid') error = result?.data?.msg ?? null;
+				if (result.type == 'invalid') toast.error(result?.data?.msg ?? 'Váratlan hiba történt!');
 				else if (result.type == 'redirect') applyAction(result);
 			};
 		}}

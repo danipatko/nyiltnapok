@@ -45,6 +45,7 @@
 		"@prisma/client": "^4.4.0",
 		"@sendgrid/mail": "^7.7.0",
 		"jsonwebtoken": "^8.5.1",
+		"svelte-french-toast": "^1.0.3",
 		"svelte-turnstile": "^0.1.4"
 	}
 }
