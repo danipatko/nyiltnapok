@@ -26,7 +26,7 @@ body {
 }
 
 header {
-	margin-block: 4em -5em;
+	margin-block: 4em -3em;
 
 	display: flex;
 	flex-direction: column;
@@ -62,7 +62,7 @@ section {
 }
 section.tartalom {
 	gap: 2em;
-	row-gap: 1em;
+	row-gap: 3em;
 }
 section.row {
 	margin-top: 2em;
@@ -135,12 +135,10 @@ section p {
 	text-align: center;
 }
 p {
+	width: 80%;
 	font-weight: 400;
 	font-size: large;
 	color: var(--heading-color);
-}
-
-p {
 	line-height: 1.5;
 }
 
@@ -168,7 +166,7 @@ h3 {
 @media all and (max-width: 800px) {
 	main {
 		padding: 2vh 5%;
-		gap: 4em;
+		gap: 2em;
 	}
 
 	header {
@@ -203,6 +201,10 @@ h3 {
 	}
 	h3 {
 		margin-bottom: 3em -2em;
+	}
+	p {
+		width: 100%;
+		text-align: left;
 	}
 
 	iframe {
