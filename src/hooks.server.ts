@@ -9,8 +9,15 @@ export const handle: Handle = async ({ event, resolve }) => {
 		userid = crypto.randomUUID();
 		event.cookies.set('userid', userid, { path: '/' });
 	}
-
 	event.locals.userid = userid;
 
-	return resolve(event);
+	const requestStartTime = Date.now();
+	const response = await resolve(event);
+
+	console.info(
+		`[${new Date(requestStartTime).toISOString()}] ${event.request.method} ${event.url.pathname} -> ${response.status} (${
+			Date.now() - requestStartTime
+		}ms)`
+	);
+	return response;
 };
