@@ -45,7 +45,7 @@ const settings: Settings = {
 	groupMemberCount: 25,
 	otpValidFor: 120,
 	otpCodeLength: 8,
-	startDate: new Date('2022-10-10T12:00:00'),
+	startDate: new Date('2022-10-12T12:00:00'),
 	deadline: new Date('2022-10-24T23:59:59')
 };
 
