@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -47,6 +47,6 @@ model Appointment {
     members         User[]      @relation("guestRelation")
 
     creatorId       Int
-    creator         User        @relation(fields: [creatorId], references: [id])
+    creator         User        @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 

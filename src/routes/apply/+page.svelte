@@ -41,18 +41,24 @@
 			}}
 		>
 			<input style="display: none;" type="number" name="day" value={toSelect} />
-			<section id="idopontok" class="tartalom row pt-2">
+			<section id="idopontok" class="row pt-2">
 				{#each data.appointments as a}
-					<section>
+					<div class="appointment">
 						<h3>
 							{a.label}
 						</h3>
 						<button class="mt-1" type="submit" on:click={() => (toSelect = selected == a.id ? 0 : a.id)}
 							>{selected == a.id ? 'Lemondás' : 'Jelentkezés'}</button
 						>
-					</section>
+					</div>
 				{/each}
 			</section>
 		</form>
 	</section>
 </main>
+
+<style>
+	#idopontok {
+		text-align: center;
+	}
+</style>
