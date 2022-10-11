@@ -41,6 +41,11 @@
 	</p>
 	<a href="/apply"><button>Jelentkezés</button></a>
 </section>
+<p style="text-align: center;">
+	<span style="padding-right: 1.5rem;"> Kapcsolat: </span>
+	<a target="_blank" style="padding-right: 1.5rem;" href="https://www.facebook.com/szlgbp">Facebook</a>
+	<a target="_blank" href="http://szlgbp.hu/">Iskola weboldala</a>
+</p>
 <section class="tartalom row">
 	<h2>Tagozatokat bemutató videók</h2>
 	<iframe
@@ -108,6 +113,14 @@
 		allowfullscreen
 	/>
 </section>
+<footer>
+	<div>Készítők:</div>
+	<div>Hacsek Anikó 9F</div>
+	<div>Varga Benedek 10F</div>
+	<div>Patkó Dániel 11F</div>
+	<div>Jávor Nikolett 11F</div>
+	<a target="_blank" href="https://github.com/danipatko/nyiltnapok"><img src="https://github.com/favicon.ico" alt="gh logo" /></a>
+</footer>
 
 <style>
 	p {
@@ -118,7 +131,23 @@
 		gap: 1.5rem;
 	}
 
-	div {
+	div:where(ul) {
 		text-align: left;
+	}
+
+	div {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		justify-content: space-evenly;
+	}
+
+	footer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		font-size: small;
+		width: 100%;
 	}
 </style>

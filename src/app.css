@@ -72,21 +72,6 @@ section.row {
 	row-gap: 2em;
 }
 
-footer {
-	padding: 0.5em 2em;
-
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
-	flex-wrap: wrap;
-	gap: 10vw;
-	row-gap: 2vw;
-
-	background-color: var(--kek);
-	color: var(--feher);
-	text-align: center;
-}
-
 .button {
 	text-decoration: none;
 }
@@ -117,6 +102,7 @@ label {
 	margin-bottom: -1em;
 }
 
+.button,
 input,
 button {
 	font-size: inherit;
@@ -225,6 +211,7 @@ h3 {
 		height: 49vw;
 		width: 100%;
 	}
+	.button,
 	button {
 		margin-top: 1em;
 		font-size: inherit;
