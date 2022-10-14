@@ -22,6 +22,7 @@ services:
     environment:
       POSTGRES_USER: default
       POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres # !!!!
     networks:
       - postgres
     restart: unless-stopped
